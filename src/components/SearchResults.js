@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { searchPlaces } from '../actions/search-places'
 import { savePlace } from '../actions/save-place'
 
 const SearchResults = ({status, results = [], saveResult}) => {

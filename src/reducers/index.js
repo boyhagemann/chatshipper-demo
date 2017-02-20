@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import { PLACES_QUERY, PLACES_SEARCH, PLACES_RESULT, PLACES_ERROR } from '../actions/search-places'
-import { SAVE_PLACE_START, SAVE_PLACE_SUCCESS, SAVE_PLACE_ERROR} from '../actions/save-place'
+import { SAVE_PLACE_START, SAVE_PLACE_SUCCESS, SAVE_PLACE_ERROR } from '../actions/save-place'
+import { FETCH_SELECTION_START, FETCH_SELECTION_SUCCESS, FETCH_SELECTION_ERROR } from '../actions/fetch-selection'
 
 const places = (state = {}, action) => {
 
@@ -43,7 +44,30 @@ const savePlaces = (state = {}, action) => {
   }
 
 }
+
+
+
+const fetchSelection = (state = {}, action) => {
+
+  switch (action.type) {
+
+    case FETCH_SELECTION_START:
+      return {...state, status: 'fetching'}
+
+    case FETCH_SELECTION_SUCCESS:
+      return {...state, status: 'success', items: action.payload}
+
+    case FETCH_SELECTION_ERROR:
+      return {...state, status: 'error'}
+
+    default:
+      return state
+  }
+
+}
+
 export default combineReducers({
   places,
-  savePlaces
+  savePlaces,
+  fetchSelection
 })

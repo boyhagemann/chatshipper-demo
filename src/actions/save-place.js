@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import { fetchSelection } from './fetch-selection'
 
 export const SAVE_PLACE_START = 'save.place.start'
 export const SAVE_PLACE_SUCCESS = 'save.place.success'
@@ -39,7 +40,10 @@ export const savePlace = result => dispatch => {
         return response.json()
     })
     .then(
-      response => dispatch(savePlaceSuccess(response.results)),
+      response => {
+        dispatch(savePlaceSuccess(response.results))
+        dispatch(fetchSelection())
+      },
       error => dispatch(savePlaceFailed(error))
     )
 }

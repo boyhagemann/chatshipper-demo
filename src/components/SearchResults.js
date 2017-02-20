@@ -1,6 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 import { savePlace } from '../actions/save-place'
+
+const Result = styled.article`
+  margin: 5px 0;
+  padding: 15px;
+  background: white;
+`
+
+const Heading = styled.h1`
+  margin: 0;
+  font-size: 16px;
+`
+
+const Button = styled.button`
+  background: #06c;
+  border: none;
+  color: white;
+  padding: 7px 10px;
+`
+
 
 const SearchResults = ({status, results = [], saveResult}) => {
 
@@ -10,15 +30,15 @@ const SearchResults = ({status, results = [], saveResult}) => {
 
 
   const row = result => (
-    <article key={ result.id }>
-      <h1>{ result.name }</h1>
+    <Result key={ result.id }>
+      <Heading>{ result.name }</Heading>
       <div>{ result.formatted_address }</div>
-      <button
+      <Button
         onClick={e => {
           e.preventDefault()
           saveResult(result)
-        }}>Opslaan</button>
-    </article>
+        }}>Opslaan</Button>
+    </Result>
   )
 
   return (

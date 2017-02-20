@@ -40,7 +40,12 @@ export const fetchSelection = () => dispatch => {
     })
     .then(
       response => {
-        const items = Object.keys(response).map( key => response[key])
+
+        // Convert the object to an array
+        const items = response
+          ? Object.keys(response).map( key => response[key])
+          : []
+
         dispatch(fetchSelectionSuccess(items))
       },
       error => dispatch(fetchSelectionError(error))

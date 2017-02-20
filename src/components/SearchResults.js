@@ -28,16 +28,18 @@ const SearchResults = ({status, results = [], saveResult}) => {
     if(status === 'searching') return <div>Bezig met zoeken...</div>
   }
 
+  // Save the place when the user clicks the button
+  const handleClick = (e, result) =>  {
+    e.preventDefault()
+    saveResult(result)
+  }
 
   const row = result => (
     <Result key={ result.id }>
       <Heading>{ result.name }</Heading>
       <div>{ result.formatted_address }</div>
       <Button
-        onClick={e => {
-          e.preventDefault()
-          saveResult(result)
-        }}>Opslaan</Button>
+        onClick={ e => handleClick(e, result) }>Opslaan</Button>
     </Result>
   )
 

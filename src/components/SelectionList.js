@@ -37,7 +37,6 @@ const SelectionList = ({status, items = []}) => {
   )
 
   return (
-
     <Container>
       <Heading>Huidige selectie</Heading>
       { items.length ? items.map( item => row(item) ) : (

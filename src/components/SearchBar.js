@@ -34,16 +34,24 @@ const Button = styled.button`
   background: #06c;
   border: none;
   color: white;
-  padding: 13px 10px 12px;
+  padding: 10px;
+  font-size: 18px;
 `
 
 const SearchBar = ({updateQuery, searchPlaces}) => {
 
+  // When users push the enter button, trigger the search
   const handleKeyPress = e => {
       if (e.key === 'Enter') {
         searchPlaces()
       }
     }
+
+  // Search for places when the user clicks the button
+  const handleClick = e => {
+      e.preventDefault()
+      searchPlaces()
+  }
 
   return (
     <Container>
@@ -51,17 +59,14 @@ const SearchBar = ({updateQuery, searchPlaces}) => {
         <Input
           type="text"
           placeholder="Zoek naar een bedrijf..."
-          onChange={e => { updateQuery(e.target.value) }}
-          onKeyPress={e => handleKeyPress(e) }
+          onChange={ updateQuery }
+          onKeyPress={ handleKeyPress }
         />
       </InputContainer>
         <ButtonContainer>
           <Button
             type="submit"
-            onClick={e => {
-               e.preventDefault()
-              searchPlaces()
-           }}>Vinden</Button>
+            onClick={ handleClick }>Vinden</Button>
         </ButtonContainer>
     </Container>
   )
@@ -69,8 +74,8 @@ const SearchBar = ({updateQuery, searchPlaces}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateQuery: (query) =>  {
-      dispatch(updateQuery(query))
+    updateQuery: e =>  {
+      dispatch(updateQuery(e.target.value))
     },
     searchPlaces: () => {
       dispatch(searchPlaces())

@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import { fetchSelection } from './fetch-selection'
+import { clearPlaces } from './search-places'
 
 export const SAVE_PLACE_START = 'save.place.start'
 export const SAVE_PLACE_SUCCESS = 'save.place.success'
@@ -32,7 +33,13 @@ export const savePlace = result => dispatch => {
 
   dispatch(savePlaceStart())
 
-  fetch('http://localhost:3001/save/' + result.id + '/' + result.formatted_address)
+  fetch('http://localhost:3001/save', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(result)
+  })
     .then( response => {
         if (response.status >= 400) {
             throw new Error("Bad response from server")
@@ -42,6 +49,7 @@ export const savePlace = result => dispatch => {
     .then(
       response => {
         dispatch(savePlaceSuccess(response.results))
+        dispatch(clearPlaces())
         dispatch(fetchSelection())
       },
       error => dispatch(savePlaceFailed(error))

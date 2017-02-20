@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { PLACES_QUERY, PLACES_SEARCH, PLACES_RESULT, PLACES_ERROR } from '../actions/search-places'
+import { PLACES_QUERY, PLACES_SEARCH, PLACES_RESULT, PLACES_ERROR, PLACES_CLEAR } from '../actions/search-places'
 import { SAVE_PLACE_START, SAVE_PLACE_SUCCESS, SAVE_PLACE_ERROR } from '../actions/save-place'
 import { FETCH_SELECTION_START, FETCH_SELECTION_SUCCESS, FETCH_SELECTION_ERROR } from '../actions/fetch-selection'
 
@@ -9,6 +9,9 @@ const places = (state = {}, action) => {
 
     case PLACES_QUERY:
       return {...state, query: action.payload}
+
+    case PLACES_CLEAR:
+      return {...state, results: []}
 
     case PLACES_SEARCH:
       return {...state, status: 'searching'}

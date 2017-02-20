@@ -4,6 +4,7 @@ export const PLACES_QUERY = 'places.query'
 export const PLACES_SEARCH = 'places.search'
 export const PLACES_RESULT = 'places.result'
 export const PLACES_ERROR = 'places.error'
+export const PLACES_CLEAR = 'places.clear'
 
 export const updateQuery = query => {
   return {
@@ -31,6 +32,13 @@ export const searchPlacesFailed = error => {
   return {
     type: PLACES_ERROR,
     payload: error
+  }
+}
+
+export const clearPlaces = query => {
+  return {
+    type: PLACES_CLEAR,
+    payload: {}
   }
 }
 

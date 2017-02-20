@@ -11,7 +11,8 @@ const SearchResults = ({status, results = [], saveResult}) => {
 
   const row = result => (
     <article key={ result.id }>
-      <h1>{ result.formatted_address }</h1>
+      <h1>{ result.name }</h1>
+      <div>{ result.formatted_address }</div>
       <button
         onClick={e => {
           e.preventDefault()

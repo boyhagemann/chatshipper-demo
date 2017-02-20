@@ -8,6 +8,7 @@ const SelectionList = ({status, items = []}) => {
   const row = item => (
     <article key={ item.id }>
       <h3>{ item.name }</h3>
+      <div>{ item.formatted_address }</div>
     </article>
   )
 

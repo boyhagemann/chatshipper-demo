@@ -42,11 +42,20 @@ export const clearPlaces = query => {
   }
 }
 
-export const searchPlaces = query => (dispatch, getState) => {
+export const searchPlaces = () => (dispatch, getState) => {
 
+  // Get the current query that the user has entered in the input
+  const query = getState().places.query
+
+  // Nothing to do if there is an empty query string
+  // Just clear the current search results
+  if(!query) dispatch(clearPlaces())
+
+  // Start the search, updating the status
   dispatch(searchPlacesStart())
 
-  fetch('http://localhost:3001/search/' + getState().places.query)
+  // Get the actual data based on the current query
+  fetch('http://localhost:3001/search/' + query)
     .then( response => {
         if (response.status >= 400) {
             throw new Error("Bad response from server")

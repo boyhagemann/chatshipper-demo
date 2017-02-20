@@ -11,21 +11,32 @@ const Result = styled.article`
 
 const Heading = styled.h1`
   margin: 0;
+  font-family: Arial;
   font-size: 16px;
+`
+const Description = styled.p`
+  margin: 5px 0;
+  font-size: 12px;
+  font-family: Arial;
 `
 
 const Button = styled.button`
   background: #06c;
   border: none;
   color: white;
+  font-family: Arial;
   padding: 7px 10px;
 `
-
+const StatusMessage = styled.div`
+  margin: 15px;
+  font-family: Arial;
+`
 
 const SearchResults = ({status, results = [], saveResult}) => {
 
+  // Show a status update when searching
   const showStatus = status => {
-    if(status === 'searching') return <div>Bezig met zoeken...</div>
+    if(status === 'searching') return <StatusMessage>Bezig met zoeken...</StatusMessage>
   }
 
   // Save the place when the user clicks the button
@@ -34,10 +45,11 @@ const SearchResults = ({status, results = [], saveResult}) => {
     saveResult(result)
   }
 
+  // Render one result row
   const row = result => (
     <Result key={ result.id }>
       <Heading>{ result.name }</Heading>
-      <div>{ result.formatted_address }</div>
+      <Description>{ result.formatted_address }</Description>
       <Button
         onClick={ e => handleClick(e, result) }>Opslaan</Button>
     </Result>
@@ -51,9 +63,7 @@ const SearchResults = ({status, results = [], saveResult}) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return state.places
-}
+const mapStateToProps = state => state.places
 
 const mapDispatchToProps = (dispatch) => {
   return {

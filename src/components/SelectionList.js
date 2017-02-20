@@ -14,17 +14,26 @@ const Result = styled.article`
 
 const Heading = styled.h1`
   margin: 0;
+  font-family: Arial;
   font-size: 24px;
 `
 
 const ResultHeading = styled.h1`
   margin: 0;
+  font-family: Arial;
   font-size: 16px;
 `
 
 const Description = styled.p`
-  margin: 0;
+  margin: 5px 0;
+  font-family: Arial;
+  font-size: 12px;
   color: #666;
+`
+
+const StatusMessage = styled.div`
+  margin: 15px;
+  font-family: Arial;
 `
 
 const SelectionList = ({status, items = []}) => {
@@ -36,9 +45,16 @@ const SelectionList = ({status, items = []}) => {
     </Result>
   )
 
+  const showStatus = status => {
+    return status === 'fetching' ? (<StatusMessage>Selectie bijwerken...</StatusMessage>) : ''
+  }
+
   return (
     <Container>
       <Heading>Huidige selectie</Heading>
+
+      { showStatus(status)  }
+
       { items.length ? items.map( item => row(item) ) : (
         <Description>Er zijn nog geen plaatsen toegevoegd.</Description>
       ) }
@@ -46,9 +62,6 @@ const SelectionList = ({status, items = []}) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return state.fetchSelection
-}
-
+const mapStateToProps = state => state.fetchSelection
 
 export default connect(mapStateToProps)(SelectionList)
